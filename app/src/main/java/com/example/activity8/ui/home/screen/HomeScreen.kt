@@ -40,6 +40,7 @@ import com.example.activity8.model.Kontak
 import com.example.activity8.network.KontakService
 import com.example.activity8.ui.home.viewmodel.HomeViewModel
 import com.example.activity8.ui.home.viewmodel.KontakUIState
+import retrofit2.http.DELETE
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -83,6 +84,7 @@ fun KontakLayout(
 @Composable
 fun KontakCard(
     kontak: Kontak,
+    onDeleteClick: (Kontak) -> Unit = {},
     modifier: Modifier = Modifier
 ){
     Card(
