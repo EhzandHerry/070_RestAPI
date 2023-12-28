@@ -11,7 +11,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
@@ -22,6 +21,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.activity8.R
 import com.example.activity8.ui.home.screen.HomeScreen
 import com.example.activity8.ui.home.viewmodel.HomeViewModel
+import com.example.activity8.ui.home.viewmodel.PenyediaViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

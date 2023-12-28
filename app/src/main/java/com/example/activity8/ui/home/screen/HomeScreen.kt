@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -33,21 +32,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.activity8.R
 import com.example.activity8.model.Kontak
 import com.example.activity8.navigation.DestinasiNavigasi
-import com.example.activity8.network.KontakService
-import com.example.activity8.ui.PenyediaViewModel
+import com.example.activity8.ui.home.viewmodel.PenyediaViewModel
 import com.example.activity8.ui.TopAppBarKontak
 import com.example.activity8.ui.home.viewmodel.HomeViewModel
 import com.example.activity8.ui.home.viewmodel.KontakUIState
-import retrofit2.http.DELETE
 
 object DestinasiHome : DestinasiNavigasi {
     override val route = "home"
