@@ -47,12 +47,27 @@ import retrofit2.http.DELETE
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(
-    kontakUIState: KontakUIState, retryAction: () -> Unit, modifier: Modifier = Modifier
-    ){
-    when(kontakUIState){
+fun HomeScreen(){
+
+}
+
+@Composable
+fun HomeStatus(
+    kontakUIState: KontakUIState, retryAction: () -> Unit, modifier: Modifier = Modifier,
+    onDeleteClick: (Kontak) -> Unit = {},
+    onDetailClick: (Int) -> Unit
+){
+    when (kontakUIState){
         is KontakUIState.Loading -> OnLoading(modifier = modifier.fillMaxSize())
-        is KontakUIState.Success -> KontakLayout(kontak = kontakUIState.kontak, modifier = modifier.fillMaxWidth()
+        is KontakUIState.Success -> KontakLayout(
+            kontak = kontakUIState.kontak,
+            modifier = modifier.fillMaxWidth(),
+            onDetailClick = {
+                onDetailClick(it.id)
+            },
+            onDeleteClick = {
+                onDeleteClick(it)
+            }
         )
         is KontakUIState.Error -> OnError(retryAction, modifier = modifier.fillMaxSize())
     }
@@ -81,7 +96,10 @@ fun KontakLayout(
         verticalArrangement = Arrangement.spacedBy(16.dp)
     ){
         items(kontak){kontak ->
-            KontakCard(kontak = kontak, modifier = Modifier.fillMaxWidth().clickable {  })
+            KontakCard(
+                kontak = kontak,
+                modifier = Modifier.fillMaxWidth().clickable { onDeleteClick(kontak) },
+                onDeleteClick = {onDeleteClick(kontak)})
         }
     }
 }
