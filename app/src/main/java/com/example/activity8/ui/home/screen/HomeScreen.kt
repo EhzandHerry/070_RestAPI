@@ -38,17 +38,69 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.activity8.R
 import com.example.activity8.model.Kontak
+import com.example.activity8.navigation.DestinasiNavigasi
 import com.example.activity8.network.KontakService
+import com.example.activity8.ui.PenyediaViewModel
+import com.example.activity8.ui.TopAppBarKontak
 import com.example.activity8.ui.home.viewmodel.HomeViewModel
 import com.example.activity8.ui.home.viewmodel.KontakUIState
 import retrofit2.http.DELETE
 
+object DestinasiHome : DestinasiNavigasi {
+    override val route = "home"
+    override val titleRes = "Kontak"
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(){
+fun HomeScreen(
+    navigateToItemEntry: () -> Unit,
+    modifier: Modifier = Modifier,
+    onDetailClick: (Int) -> Unit = {},
+    viewModel: HomeViewModel = viewModel(factory = PenyediaViewModel.Factory)
+) {
+    val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
+    Scaffold(
+        modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
+        topBar = {
+            TopAppBarKontak(
+                title = DestinasiHome.titleRes,
+                canNavigateBack = false,
+                scrollBehavior = scrollBehavior
+            ){}
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = navigateToItemEntry,
+                shape = MaterialTheme.shapes.medium,
+                modifier = Modifier.padding(18.dp)
+            ) {
+                Icon(
+                    imageVector = Icons.Default.Add,
+                    contentDescription = "Add Kontak"
+                )
+            }
+        }
+    ) { innerPadding ->
+
+        HomeStatus(
+            kontakUIState = viewModel.kontakUIState,
+            retryAction = {
+                viewModel.getKontak()
+            },
+            modifier = Modifier.padding(innerPadding),
+
+            onDetailClick = onDetailClick,
+            onDeleteClick = {
+                viewModel.deleteKontak(it.id)
+                viewModel.getKontak()
+            }
+        )
+    }
 }
 
 @Composable
