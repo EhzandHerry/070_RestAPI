@@ -71,7 +71,9 @@ fun OnLoading(modifier: Modifier = Modifier) {
 @Composable
 fun KontakLayout(
     kontak : List<Kontak>,
-    modifier: Modifier =Modifier
+    modifier: Modifier =Modifier,
+    onDetailClick: (Kontak) -> Unit,
+    onDeleteClick: (Kontak) -> Unit = {}
 ){
     LazyColumn(
         modifier = Modifier,
