@@ -6,14 +6,33 @@ import java.io.IOException
 
 interface KontakRepository {
     suspend fun getKontak(): List<Kontak>
+
+    suspend fun insertKontak(kontak: Kontak)
+
+    suspend fun updateKontak(id: Int, kontak: Kontak)
+
     suspend fun deleteKontak(id: Int)
+
+    suspend fun getkontakById(id: Int): Kontak
 }
 
 class NetworkKontakRepository(
     private val kontakApiService: KontakService
 ) : KontakRepository{
+    /* Fetches List of Kontak from kontakAPI*/
     override suspend fun getKontak(): List<Kontak> = kontakApiService.getKontak()
 
+    //insert kontak
+    override suspend fun insertKontak(kontak: Kontak){
+        kontakApiService.insertKontak(kontak)
+    }
+
+    //update kontak
+    override suspend fun updateKontak(id: Int, kontak: Kontak){
+        kontakApiService.updateKontak(id,kontak)
+    }
+
+    //delete kontak
     override suspend fun deleteKontak(id: Int){
         try {
             val response = kontakApiService.deleteKontak(id)
@@ -28,4 +47,7 @@ class NetworkKontakRepository(
         }
     }
 
+    override suspend fun getkontakById(id:Int): Kontak{
+        TODO("Not yet implemented")
+    }
 }
